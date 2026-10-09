@@ -1,0 +1,10 @@
+services:
+  nginx:
+    networks:
+      - inception
+  wordpress:
+    networks:
+      - inception
+
+networks:
+  inception:
