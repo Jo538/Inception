@@ -1,8 +1,16 @@
 services:
   nginx:
+    build: requirements/nginx
+    image: nginx
+    ports:
+      - "443:443"
+    restart: on-failure
     networks:
       - inception
   wordpress:
+    build: requirements/wordpress
+    image: wordpress
+    restart: on-failure
     networks:
       - inception
 
