@@ -7,12 +7,24 @@ services:
     restart: on-failure
     networks:
       - inception
+    volumes:
+      - wordpress_data:/var/www/wordpress
   wordpress:
     build: requirements/wordpress
     image: wordpress
     restart: on-failure
     networks:
       - inception
+    volumes:
+      - wordpress_data:/var/www/wordpress
 
 networks:
   inception:
+
+volumes:
+  wordpress_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /Users/admin/Documents/42/inception/test  #/home/jchartie/data/wordpress
