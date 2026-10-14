@@ -4,10 +4,9 @@ set -e
 
 DB_PASSWORD=$(cat /run/secrets/db_password)
 
-if [ ! -d /var/lib/my_sql/wordpress ]; then
+if [ ! -d /var/lib/mysql/wordpress ]; then
 	echo "Setting up MariaDB"
 	cd /run && mkdir mysqld
-	cat > /run/mysqld/mysqld.sock
 	chown -R mysql:mysql /run/mysqld
 
 	exec mariadbd --user=mysql &
@@ -16,6 +15,7 @@ if [ ! -d /var/lib/my_sql/wordpress ]; then
 	done
 	mariadb -e "CREATE DATABASE wordpress;"
 	mariadb -e "CREATE USER 'wpuser'@'%' IDENTIFIED BY '$DB_PASSWORD'"
+	mariadb -e "GRANT ALL PRIVILEGES ON wordpress.* TO 'wpuser'@'%'"
 	mariadb-admin shutdown
 fi
 
