@@ -17,6 +17,14 @@ services:
       - inception
     volumes:
       - wordpress_data:/var/www/wordpress
+  mariadb:
+    build: requirements/mariadb
+    image: mariadb
+    restart: on-failure
+    networks:
+      - inception
+    secrets:
+      - db_password
 
 networks:
   inception:
@@ -28,3 +36,7 @@ volumes:
       type: none
       o: bind
       device: /Users/admin/Documents/42/inception/test  #/home/jchartie/data/wordpress
+
+secrets:
+  db_password:
+    file: ../secrets/db_password.txt

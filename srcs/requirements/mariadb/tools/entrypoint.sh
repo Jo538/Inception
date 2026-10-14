@@ -2,6 +2,8 @@
 
 set -e
 
+DB_PASSWORD=$(cat /run/secrets/db_password)
+
 if [ ! -d /var/lib/my_sql/wordpress ]; then
 	echo "Setting up MariaDB"
 	cd /run && mkdir mysqld
@@ -13,6 +15,7 @@ if [ ! -d /var/lib/my_sql/wordpress ]; then
 		sleep 1
 	done
 	mariadb -e "CREATE DATABASE wordpress;"
+	mariadb -e "CREATE USER 'wpuser'@'%' IDENTIFIED BY '$DB_PASSWORD'"
 	mariadb-admin shutdown
 fi
 
