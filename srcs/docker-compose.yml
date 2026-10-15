@@ -17,6 +17,8 @@ services:
       - inception
     volumes:
       - wordpress_data:/var/www/wordpress
+    secrets:
+      - db_password
   mariadb:
     build: requirements/mariadb
     image: mariadb
