@@ -2,6 +2,7 @@ services:
   nginx:
     build: requirements/nginx
     image: nginx
+    container_name: container_nginx
     ports:
       - "443:443"
     restart: on-failure
@@ -12,6 +13,7 @@ services:
   wordpress:
     build: requirements/wordpress
     image: wordpress
+    container_name: container_wordpress
     restart: on-failure
     networks:
       - inception
@@ -28,14 +30,31 @@ services:
       - WP_ADMIN_EMAIL=${WP_ADMIN_EMAIL}
       - WP_OTHER_USER=${WP_OTHER_USER}
       - WP_USER_EMAIL=${WP_USER_EMAIL}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+    depends_on:
+      mariadb:
+        condition: service_healthy
   mariadb:
     build: requirements/mariadb
     image: mariadb
+    container_name: container_mariadb
     restart: on-failure
     networks:
       - inception
+    volumes:
+      - mariadb_data:/var/lib/mysql
     secrets:
       - db_password
+    environment:
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+    healthcheck:
+      test: ["CMD", "mariadb-admin", "ping"]
+      interval: 5s
+      timeout: 2s
+      retries: 5
+      start_period: 30s
 
 networks:
   inception:
@@ -46,7 +65,13 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /Users/admin/Documents/42/inception/test  #/home/jchartie/data/wordpress
+      device: /Users/admin/Documents/42/inception/test/wordpress  #/home/jchartie/data/wordpress
+  mariadb_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /Users/admin/Documents/42/inception/test/mariadb  #/home/jchartie/data/mariadb
 
 secrets:
   db_password:
