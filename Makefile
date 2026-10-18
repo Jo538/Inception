@@ -6,7 +6,7 @@
 #    By: admin <admin@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/10/16 17:49:53 by admin             #+#    #+#              #
-#    Updated: 2026/10/16 18:27:48 by admin            ###   ########.fr        #
+#    Updated: 2026/10/18 12:20:33 by admin            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,12 +27,12 @@ start:
 	@$(COMPOSE) start
 
 strict_down:
-	@$(COMPOSE) down -v
+	@$(COMPOSE) down -v --rmi all
 	@rm -rf /Users/admin/Documents/42/inception/test/wordpress     # /home/jchartie/data/wordpress/*
 	@rm -rf /Users/admin/Documents/42/inception/test/mariadb    # /home/jchartie/data/mariadb/*
 
 ps:
-	@$(COMPOSE) ps
+	@$(COMPOSE) ps $(option)
 
 logs:
 	@$(COMPOSE) logs $(name)
