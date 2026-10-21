@@ -65,13 +65,13 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /Users/admin/Documents/42/inception/test/wordpress  #/home/jchartie/data/wordpress
+      device: /home/jchartie/data/wordpress
   mariadb_data:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /Users/admin/Documents/42/inception/test/mariadb  #/home/jchartie/data/mariadb
+      device: /home/jchartie/data/mariadb
 
 secrets:
   db_password:

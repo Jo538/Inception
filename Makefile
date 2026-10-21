@@ -3,18 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: admin <admin@student.42.fr>                +#+  +:+       +#+         #
+#    By: jchartie <jchartie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/10/16 17:49:53 by admin             #+#    #+#              #
-#    Updated: 2026/10/18 12:20:33 by admin            ###   ########.fr        #
+#    Updated: 2026/10/21 11:19:48 by jchartie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 COMPOSE=docker compose -f srcs/docker-compose.yml
 
 up:
-	@mkdir -p /Users/admin/Documents/42/inception/test/wordpress   # /home/jchartie/data/wordpress
-	@mkdir -p /Users/admin/Documents/42/inception/test/mariadb     # /home/jchartie/data/mariadb
+	@mkdir -p /home/jchartie/data/wordpress
+	@mkdir -p /home/jchartie/data/mariadb
 	@$(COMPOSE) up --build -d
 
 down:
@@ -28,8 +28,8 @@ start:
 
 strict_down:
 	@$(COMPOSE) down -v --rmi all
-	@rm -rf /Users/admin/Documents/42/inception/test/wordpress     # /home/jchartie/data/wordpress/*
-	@rm -rf /Users/admin/Documents/42/inception/test/mariadb    # /home/jchartie/data/mariadb/*
+	@rm -rf /home/jchartie/data/wordpress/*
+	@rm -rf /home/jchartie/data/mariadb/*
 
 ps:
 	@$(COMPOSE) ps $(option)
