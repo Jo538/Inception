@@ -28,8 +28,8 @@ start:
 
 strict_down:
 	@$(COMPOSE) down -v --rmi all
-	@rm -rf /home/jchartie/data/wordpress/*
-	@rm -rf /home/jchartie/data/mariadb/*
+	@sudo rm -rf /home/jchartie/data/wordpress/*
+	@sudo rm -rf /home/jchartie/data/mariadb/*
 
 ps:
 	@$(COMPOSE) ps $(option)
